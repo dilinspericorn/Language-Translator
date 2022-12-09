@@ -9,41 +9,41 @@ import axios from 'axios';
 export class App extends Component {
   state = {
     input: null,
+    lan: '',
+    output: '',
+  };
+  selectedLanguage = (lang) => {
+    this.setState({
+      lan: lang,
+    });
   };
 
-  getInputValue=(e)=>{
-    // console.log(e);
-    this.setState({
-        input:e
-    })
-  }
+  getTranslation = (inputtext) => {
+    // console.log(inputtext, translateLanguageTo);
 
-Translation=()=>{
-    
-}
-
-  getTranslation = (inputtext, translateLanguageTo) => {
-    axios.post(
+    axios
+    .post(
       'https://translation.googleapis.com/language/translate/v2?key=AIzaSyCHUCmpR7cT_yDFHC98CZJy2LTms-IwDlM',
       {},
-      {
-        params: {
-          q: inputtext,
-          target: translateLanguageTo,
-        },
-      }
-    );
+        {
+          params: {
+            q: inputtext,
+            target: this.state.lan,
+          },
+        }
+      )
+      //   .then((data) => this.setState({ output: data.data.results }));
+      .then((data) => console.log(data.data.results));
   };
 
   render() {
-    console.log(this.state.input);
     return (
       <div className="main-card">
         <div className="language-card d-flex">
-          <InputField getInputValue={this.getInputValue}/>
-          <DropDown />
+          <InputField getInputValue={this.getTranslation} />
+          <DropDown langSelect={this.selectedLanguage} />
         </div>
-        <OutputField />
+        <OutputField result={this.state.output} />
       </div>
     );
   }

@@ -1,31 +1,36 @@
 import React, { Component } from 'react';
 
 export class InputField extends Component {
+state={
+  inputValue:""
+}
+
   getEnteredInput = (e) => {
-    this.props.getInputValue(e.target.value);
+  this.setState({
+    inputValue:e.target.value
+  })
   };
-//   getDropDownChange = (e) => {
-//     console.log(e.target.value);
-//   };
+
+  onSubmitForm=(e)=>{
+e.preventDefault()
+    this.props.getInputValue(this.state.inputValue)
+  }
+
+
+
   render() {
     return (
-      <form className="input-field">
+      <form className="input-field" onSubmit={this.onSubmitForm}>
         <div className="form-group">
           <h5>Enter Text</h5>
-          <textarea
+          <input
+          type="text"
             className="form-control"
             placeholder="Enter Text"
             onChange={this.getEnteredInput}
+            value={this.state.inputValue}
           />
         </div>
-        {/* <div className="drop-down">
-        <div className="dropdown">
-          <select  onChange={this.getDropDownChange}>
-            <option value={0}>English</option>
-            <option value={1}>Malayalam</option>
-          </select>
-        </div>
-      </div> */}
       </form>
     );
   }

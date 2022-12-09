@@ -1,11 +1,10 @@
 export default [
-    {
-        label:"english",
-        value:"english"
-    },
-    {
-        label:"malayalam",
-        value:"malayalam"
-    }
-
-]
+  {
+    label: 'english',
+    value: 'english',
+  },
+  {
+    label: 'malayalam',
+    value: 'malayalam',
+  },
+];
